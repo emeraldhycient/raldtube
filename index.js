@@ -38,7 +38,7 @@ app.get("/download",(req,res)=>{
       }).pipe(res)
 
     })
-app.listen(4000,(err)=>{
+app.listen(process.env.PORT || 4000,(err)=>{
   if(err) console.log(err)
 
  const date = Date()
