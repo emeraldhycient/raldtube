@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>youtube video downloader</title>
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  </head>
+  <body>
+<div class="container">
+<center><h1>Raldtube </h1></center><br>
+<div class="m-auto">
+  <center>
+<form  class="form-group form1">
+  <input type="text" name="qury" id="search" placeholder="search video by title.." class="form-control" style="width:60%;"><br>
+  <input type="submit"  value="search" class="btn btn-primary m-auto">
+</form>
+</center>
+<center>
+<form class="form-group" action="/download" method="get">
+  <input type="text" name="ur" id="ur" placeholder="paste url .." class="form-control" style="width:60%;"><br>
+  <input type="submit"  value="download" class="btn btn-primary m-auto">
+</form>
+</center>
+<!--<iframe width="560" height="315"
+src="https://www.youtube.com/embed/zAlX1V3lK5s">
+</iframe> -->
+</div>
+  <div class="row ">
+    <center>
+<ul class="m-auto">
+
+</ul>
+  </div>
+</center>
+  </div>
+  </body>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<script>
+$(document).ready(()=>{
+
+$(".form1").submit((e)=>{
+    e.preventDefault();
+    var q = $("#search").val();
+    $.ajax({
+      url:"/findvideo",
+      method:"post",
+      data:{
+        "qu":q
+      },
+      success:(data)=>{
+
+      $.each(data,(i,item)=>{
+        var vid = `<li><iframe width="420" height="315"
+src="https://www.youtube.com/embed/${item.id.videoId}">
+</iframe><br><h4>${item.snippet.title}</h4><br>
+<form class="form-group" action="/download" method="get">
+  <input type="text" name="ur" id="ur" value="https://www.youtube.com/embed/${item.id.videoId}" class="form-control" style="display:none;">
+  <input type="submit"  value="download" class="btn btn-primary m-auto">
+</form>
+</li>`;
+$("ul").append(vid)
+
+              });
+      }
+    });
+
+  });
+
+});
+</script>
+</html>
