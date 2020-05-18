@@ -43,5 +43,5 @@ app.listen(process.env.PORT || 4000,(err)=>{
 
  const date = Date()
 
-  console.log("app is listening on port "+process.env.PORT+""+" "+ date);
+  console.log("app is listening on port "+process.env.PORT+" or 4000"+" "+ date);
 })
